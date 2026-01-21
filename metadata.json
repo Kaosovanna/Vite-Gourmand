@@ -1,0 +1,5 @@
+{
+  "name": "Vite & Gourmand",
+  "description": "Application web de traiteur haut de gamme avec gestion de menus, commandes et statistiques analytiques.",
+  "requestFramePermissions": []
+}
