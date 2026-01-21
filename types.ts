@@ -11,7 +11,6 @@ export enum StatutCommande {
   PREPARATION = 'en préparation',
   LIVRAISON = 'en cours de livraison',
   LIVRE = 'livré',
-  ATTENTE_MATERIEL = 'en attente retour matériel',
   TERMINEE = 'terminée',
   ANNULEE = 'annulée'
 }
@@ -21,7 +20,7 @@ export interface Menu {
   titre: string;
   description: string;
   prixBase: number;
-  nbPersonnesMin: number;
+  nbConvivesMin: number;
   theme: string;
   regime: string;
   image: string;
@@ -37,17 +36,4 @@ export interface Utilisateur {
   telephone: string;
   adresse: string;
   role: Role;
-}
-
-export interface Commande {
-  identifiant: number;
-  menuIdentifiant: number;
-  utilisateurIdentifiant: number;
-  datePrestation: string;
-  heurePrestation: string;
-  lieu: string;
-  nbPersonnes: number;
-  prixTotal: number;
-  statut: StatutCommande;
-  motifAnnulation?: string;
 }

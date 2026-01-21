@@ -12,7 +12,7 @@ export const Navbar: React.FC<{ naviguerVers: (page: string) => void, utilisateu
           <div className="flex items-center">
             <button 
               onClick={() => naviguerVers('accueil')} 
-              className="font-serif text-3xl font-bold tracking-tighter text-primary"
+              className="font-serif text-3xl font-bold tracking-tighter text-primaire"
             >
               Vite <span className="text-accent">&</span> Gourmand
             </button>
@@ -26,14 +26,14 @@ export const Navbar: React.FC<{ naviguerVers: (page: string) => void, utilisateu
             {utilisateur ? (
               <button 
                 onClick={() => naviguerVers('tableau-de-bord')} 
-                className="px-6 py-3 bg-primary text-white text-[10px] font-bold tracking-[0.2em] rounded-sm hover:bg-accent transition-all uppercase"
+                className="px-6 py-3 bg-primaire text-white text-[10px] font-bold tracking-[0.2em] rounded-sm hover:bg-accent transition-all uppercase"
               >
-                Mon Espace {utilisateur.role}
+                Espace {utilisateur.role}
               </button>
             ) : (
               <button 
                 onClick={() => naviguerVers('connexion')} 
-                className="px-6 py-3 bg-accent text-white text-[10px] font-bold tracking-[0.2em] rounded-sm hover:bg-primary transition-all uppercase"
+                className="px-6 py-3 bg-accent text-white text-[10px] font-bold tracking-[0.2em] rounded-sm hover:bg-primaire transition-all uppercase"
               >
                 Connexion
               </button>
@@ -41,7 +41,7 @@ export const Navbar: React.FC<{ naviguerVers: (page: string) => void, utilisateu
           </div>
 
           <div className="md:hidden flex items-center">
-            <button onClick={() => setEstOuvert(!estOuvert)} className="text-primary p-2">
+            <button onClick={() => setEstOuvert(!estOuvert)} className="text-primaire p-2">
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={estOuvert ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
               </svg>

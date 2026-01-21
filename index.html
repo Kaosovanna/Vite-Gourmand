@@ -8,51 +8,51 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-      @keyframes progress-slow {
-        0% { width: 0%; }
-        100% { width: 100%; }
+      /* Animation de respiration pour les images de fond */
+      @keyframes pulse-lent {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.03); opacity: 0.9; }
       }
-      .animate-progress-slow {
-        animation: progress-slow 60s linear forwards;
-      }
-      @keyframes pulse-slow {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-      }
-      .animate-pulse-slow {
-        animation: pulse-slow 15s ease-in-out infinite;
-      }
-      
-      /* Transition ultra-fluide pour les citations */
-      .quote-transition {
-        transition: opacity 2000ms ease-in-out, transform 2000ms ease-in-out;
+      .animate-pulse-lent {
+        animation: pulse-lent 12s ease-in-out infinite;
       }
 
-      /* Motif Fleur de Lys Doré subtil */
-      .bg-lys-pattern {
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cpath fill='%23c5a059' fill-opacity='0.05' d='M40 10c-2 0-5 2-5 8s3 10 5 10 5-4 5-10-3-8-5-8zm0 24c-8 0-12 4-12 12s4 8 12 8 12-4 12-12-4-12-12-12z'/%3E%3C/svg%3E");
-      }
-
-      .fleur-de-lys-divider {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 20px;
-        color: #c5a059;
-      }
-      .fleur-de-lys-divider::before, .fleur-de-lys-divider::after {
-        content: '';
-        height: 1px;
-        flex-grow: 1;
-        background: linear-gradient(to right, transparent, #c5a059, transparent);
+      /* Nouvel effet de mouvement de vie pour toutes les photos */
+      @keyframes pan-slow {
+        0% { transform: scale(1) translateX(0) translateY(0); }
+        25% { transform: scale(1.05) translateX(-1%) translateY(1%); }
+        50% { transform: scale(1.1) translateX(1%) translateY(-1%); }
+        75% { transform: scale(1.05) translateX(-1%) translateY(-1%); }
+        100% { transform: scale(1) translateX(0) translateY(0); }
       }
       
+      .img-vivante {
+        animation: pan-slow 25s ease-in-out infinite;
+        will-change: transform;
+      }
+      
+      /* Transition vaporeuse pour les textes */
+      .transition-vaporeuse {
+        transition: opacity 2500ms ease-in-out, transform 2500ms ease-in-out;
+      }
+
+      /* Motif Fleur de Lys Doré */
+      .motif-lys {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 80 80'%3E%3Cpath fill='%23c5a059' fill-opacity='0.04' d='M40 10c-2 0-5 2-5 8s3 10 5 10 5-4 5-10-3-8-5-8zm0 24c-8 0-12 4-12 12s4 8 12 8 12-4 12-12-4-12-12-12z'/%3E%3C/svg%3E");
+      }
+
       body {
         margin: 0;
         padding: 0;
-        background-color: #ffffff !important; /* Force le blanc pur */
+        background-color: #ffffff !important;
         color: #1a1a1a;
+        overflow-x: hidden;
       }
+
+      /* Scrollbar élégante */
+      ::-webkit-scrollbar { width: 6px; }
+      ::-webkit-scrollbar-track { background: #f9f9f9; }
+      ::-webkit-scrollbar-thumb { background: #c5a059; border-radius: 10px; }
     </style>
     <script>
       tailwind.config = {
@@ -63,7 +63,7 @@
               sans: ['Montserrat', 'sans-serif'],
             },
             colors: {
-              primary: '#1a1a1a',
+              primaire: '#1a1a1a',
               accent: '#c5a059',
             }
           }
@@ -79,7 +79,8 @@
     "express": "https://esm.sh/express@^5.2.1",
     "cors": "https://esm.sh/cors@^2.8.5",
     "@prisma/client": "https://esm.sh/@prisma/client@^7.2.0",
-    "mongoose": "https://esm.sh/mongoose@^9.1.5"
+    "mongoose": "https://esm.sh/mongoose@^9.1.5",
+    "@google/genai": "https://esm.sh/@google/genai@^1.38.0"
   }
 }
 </script>
