@@ -87,55 +87,57 @@ const Testimonials = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setVisible(false);
+      // On laisse 2500ms pour un fondu de sortie et d'entrée très doux
       setTimeout(() => {
         setActive((prev) => (prev + 1) % reviews.length);
         setVisible(true);
-      }, 2000); // 2 secondes de fondu pour l'élégance
-    }, 10000); // 10 secondes entre chaque avis
+      }, 2500); 
+    }, 10000); // Cycle de 10 secondes
     return () => clearInterval(timer);
   }, [reviews.length]);
 
   return (
-    <section className="py-40 bg-white border-y border-gray-50 overflow-hidden relative">
+    <section className="py-48 bg-white border-y border-gray-50 overflow-hidden relative">
       <div className="absolute inset-0 bg-lys-pattern opacity-[0.03] pointer-events-none"></div>
       <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-24">
-          <span className="text-[10px] font-bold tracking-[0.5em] text-accent uppercase">L'Excellence Reconnue</span>
-          <h2 className="font-serif text-5xl mt-4 text-primary italic">Paroles de Convives</h2>
-          <div className="flex justify-center mt-6">
-             <div className="w-12 h-[1px] bg-accent/30"></div>
+        <div className="text-center mb-28">
+          <span className="text-[10px] font-bold tracking-[0.6em] text-accent uppercase">Témoignages d'Émotion</span>
+          <h2 className="font-serif text-5xl md:text-6xl mt-6 text-primary italic">Paroles de Convives</h2>
+          <div className="flex justify-center mt-8">
+             <div className="w-16 h-[1px] bg-accent/40"></div>
           </div>
         </div>
 
-        <div className="relative h-[550px] md:h-[350px]">
-          <div className={`quote-transition flex flex-col md:flex-row items-center gap-16 md:gap-24 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <div className="w-full md:w-2/5 aspect-[4/3] rounded-sm overflow-hidden shadow-[20px_20px_0px_0px_rgba(197,160,89,0.1)] border border-gray-100">
+        <div className="relative h-[600px] md:h-[400px]">
+          <div className={`transition-all duration-[2500ms] ease-in-out flex flex-col md:flex-row items-center gap-16 md:gap-32 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+            <div className="w-full md:w-[45%] aspect-[16/10] md:aspect-[4/3] rounded-sm overflow-hidden shadow-[30px_30px_0px_0px_rgba(197,160,89,0.05)] border border-gray-100 relative group">
               <img 
                 src={reviews[active].img} 
                 alt={reviews[active].menu} 
-                className="w-full h-full object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-1000" 
+                className={`w-full h-full object-cover transition-transform duration-[12000ms] ease-linear ${visible ? 'scale-110' : 'scale-100'}`} 
               />
+              <div className="absolute inset-0 bg-black/5"></div>
             </div>
             
-            <div className="flex-1 space-y-8">
-              <div className="flex gap-1.5">
+            <div className="flex-1 space-y-10">
+              <div className="flex gap-2">
                 {[...Array(5)].map((_, s) => (
-                  <svg key={s} className="w-4 h-4 fill-accent" viewBox="0 0 24 24">
+                  <svg key={s} className="w-3.5 h-3.5 fill-accent opacity-80" viewBox="0 0 24 24">
                     <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
                   </svg>
                 ))}
               </div>
               
-              <p className="font-serif text-3xl italic text-gray-800 leading-snug">
+              <p className="font-serif text-3xl md:text-4xl italic text-gray-800 leading-tight tracking-tight">
                 "{reviews[active].text}"
               </p>
               
-              <div className="pt-4">
-                <h4 className="font-bold text-primary text-xs uppercase tracking-[0.3em]">{reviews[active].name}</h4>
-                <div className="flex items-center gap-3 mt-2">
-                  <span className="h-[1px] w-6 bg-accent"></span>
-                  <p className="text-accent text-[10px] font-bold tracking-[0.2em] uppercase">
-                    Expérience : {reviews[active].menu}
+              <div className="pt-6 flex items-center gap-6">
+                <div className="h-[1px] w-12 bg-accent/60"></div>
+                <div>
+                  <h4 className="font-bold text-primary text-[11px] uppercase tracking-[0.4em]">{reviews[active].name}</h4>
+                  <p className="text-accent text-[9px] font-bold tracking-[0.2em] mt-1.5 uppercase opacity-80">
+                    Menu dégusté : {reviews[active].menu}
                   </p>
                 </div>
               </div>
@@ -143,13 +145,19 @@ const Testimonials = () => {
           </div>
         </div>
 
-        {/* Indicateurs de progression */}
-        <div className="flex justify-center gap-4 mt-12">
+        {/* Barre de progression élégante */}
+        <div className="flex justify-center gap-6 mt-16">
           {reviews.map((_, i) => (
-            <div 
+            <button 
               key={i} 
-              className={`h-[2px] transition-all duration-1000 rounded-full ${i === active ? 'w-12 bg-accent' : 'w-4 bg-gray-200'}`}
-            ></div>
+              className={`group relative h-8 flex items-center transition-all duration-700`}
+              onClick={() => {
+                setVisible(false);
+                setTimeout(() => { setActive(i); setVisible(true); }, 500);
+              }}
+            >
+              <div className={`h-[1px] transition-all duration-1000 ${i === active ? 'w-16 bg-accent' : 'w-6 bg-gray-200 group-hover:bg-accent/40'}`}></div>
+            </button>
           ))}
         </div>
       </div>
@@ -165,56 +173,57 @@ export const HomePage: React.FC<{ onNavigate: (p: string) => void }> = ({ onNavi
         <div className="absolute inset-0 z-0">
           <img 
             src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2000&auto=format&fit=crop" 
-            className="w-full h-full object-cover brightness-[0.35] animate-pulse-slow"
-            alt="Ambiance"
+            className="w-full h-full object-cover brightness-[0.3] animate-pulse-slow"
+            alt="Ambiance Luxe"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-white"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-white"></div>
         </div>
-        <div className="relative z-10 text-center px-4 max-w-4xl">
-          <span className="inline-block mb-8 px-8 py-2.5 border border-accent/40 rounded-full text-[10px] tracking-[0.5em] uppercase text-accent font-bold bg-black/30 backdrop-blur-md">
-            Bordeaux • Haute Couture Culinaire
+        <div className="relative z-10 text-center px-4 max-w-5xl">
+          <span className="inline-block mb-10 px-10 py-3 border border-accent/30 rounded-full text-[10px] tracking-[0.6em] uppercase text-accent font-bold bg-black/20 backdrop-blur-lg">
+            Bordeaux • Haute Gastronomie Nomade
           </span>
-          <h1 className="font-serif text-7xl md:text-9xl text-white mb-12 tracking-tighter leading-none">
-            L'Art de <span className="italic text-accent">Recevoir</span>
+          <h1 className="font-serif text-7xl md:text-[10rem] text-white mb-14 tracking-tighter leading-none">
+            L'Art de <span className="italic text-accent font-light">Savourer</span>
           </h1>
           <button 
             onClick={() => onNavigate('menus')} 
-            className="group relative px-14 py-6 bg-accent text-white font-bold tracking-[0.4em] overflow-hidden rounded-full shadow-2xl transition-all"
+            className="group relative px-16 py-7 bg-accent text-white font-bold tracking-[0.5em] overflow-hidden rounded-sm shadow-2xl transition-all"
           >
-            <span className="relative z-10 uppercase text-[10px]">Découvrir nos Collections</span>
-            <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+            <span className="relative z-10 uppercase text-[11px]">Consulter nos Collections</span>
+            <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-out"></div>
+            <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
           </button>
         </div>
       </section>
 
       {/* Philosophie Section */}
-      <section className="py-48 bg-white relative">
+      <section className="py-56 bg-white relative">
         <div className="absolute inset-0 bg-lys-pattern opacity-10 pointer-events-none"></div>
         <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-32 items-center relative z-10">
-          <div className="relative">
-            <div className="absolute -inset-10 border border-accent/10 rounded-sm translate-x-12 translate-y-12"></div>
-            <div className="relative aspect-[4/5] rounded-sm overflow-hidden shadow-2xl">
+          <div className="relative order-2 md:order-1">
+            <div className="absolute -inset-12 border border-accent/10 rounded-sm translate-x-16 translate-y-16"></div>
+            <div className="relative aspect-[4/5] rounded-sm overflow-hidden shadow-[40px_40px_80px_rgba(0,0,0,0.08)]">
               <ImageCarousel />
             </div>
           </div>
-          <div className="space-y-12">
-            <div className="space-y-4">
-              <span className="text-[10px] font-bold tracking-[0.4em] text-accent uppercase italic">Notre Héritage</span>
-              <h2 className="font-serif text-6xl text-primary leading-tight">Gastronomie <br/><span className="text-accent italic font-light">Sans Frontières</span></h2>
+          <div className="space-y-16 order-1 md:order-2">
+            <div className="space-y-6">
+              <span className="text-[11px] font-bold tracking-[0.5em] text-accent uppercase italic block">Manifeste Culinaire</span>
+              <h2 className="font-serif text-6xl md:text-7xl text-primary leading-[1.1]">Éveil des <br/><span className="text-accent italic font-light">Sens</span></h2>
             </div>
-            <div className="w-20 h-[1px] bg-accent"></div>
+            <div className="w-24 h-[1px] bg-accent/40"></div>
             <QuoteCarousel />
             <button 
               onClick={() => onNavigate('menus')} 
-              className="text-accent font-bold tracking-[0.3em] text-[10px] flex items-center gap-6 group uppercase border-b border-accent/20 pb-4 hover:border-accent transition-colors"
+              className="text-accent font-bold tracking-[0.4em] text-[11px] flex items-center gap-8 group uppercase border-b border-accent/10 pb-6 hover:border-accent transition-all"
             >
-              EXPLORER LA CARTE <span className="group-hover:translate-x-4 transition-transform text-lg">→</span>
+              LA CARTE SIGNATURE <span className="group-hover:translate-x-6 transition-transform text-2xl font-light">→</span>
             </button>
           </div>
         </div>
       </section>
 
-      {/* Testimonials Section */}
+      {/* Testimonials Section - La pièce maîtresse lente et élégante */}
       <Testimonials />
     </div>
   );
